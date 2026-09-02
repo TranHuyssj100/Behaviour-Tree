@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a743e7da108edc46b36c0d16dd5cb04, type: 3}
+  m_Name: BehaviourTree
+  m_EditorClassIdentifier: 
+  Root:
+    rid: 4556783061220720640
+  references:
+    version: 2
+    RefIds:
+    - rid: 4556783061220720640
+      type: {class: SelectorNode, ns: , asm: Assembly-CSharp}
+      data:
+        nodeName: Customer
+        children:
+        - rid: 4556783061220720641
+        - rid: 4556783061220720642
+    - rid: 4556783061220720641
+      type: {class: SequenceNode, ns: , asm: Assembly-CSharp}
+      data:
+        nodeName: GotoBuyPizza
+        children:
+        - rid: 4556783061220720643
+        - rid: 4556783061220720644
+        - rid: 4556783061220720645
+    - rid: 4556783061220720642
+      type: {class: SequenceNode, ns: , asm: Assembly-CSharp}
+      data:
+        nodeName: GotoMakeMoney
+        children:
+        - rid: 4556783061220720646
+        - rid: 4556783061220720647
+    - rid: 4556783061220720643
+      type: {class: HasEnoughMoneyCondition, ns: , asm: Assembly-CSharp}
+      data:
+        nodeName: 
+    - rid: 4556783061220720644
+      type: {class: MoveToShopAction, ns: , asm: Assembly-CSharp}
+      data:
+        nodeName: 
+    - rid: 4556783061220720645
+      type: {class: BuyWantedItemAction, ns: , asm: Assembly-CSharp}
+      data:
+        nodeName: 
+    - rid: 4556783061220720646
+      type: {class: NotEnoughMoneyCondition, ns: , asm: Assembly-CSharp}
+      data:
+        nodeName: 
+    - rid: 4556783061220720647
+      type: {class: WithdrawMoneyAction, ns: , asm: Assembly-CSharp}
+      data:
+        nodeName: 
