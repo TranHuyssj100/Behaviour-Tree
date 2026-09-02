@@ -1,3 +1,4 @@
+# Unity generated folders
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -5,4 +6,40 @@
 [Bb]uilds/
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
+MemoryCaptures/
+Recordings/
+
+# Unity package / cache artifacts
+.gradle/
+ExportedObj/
+
+# Visual Studio / Rider / IDE
 .vs/
+.idea/
+.consulo/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.unityproj
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity generated metadata
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Crash reports
+sysinfo.txt
+
+# Build outputs
+*.apk
+*.aab
+*.unitypackage
