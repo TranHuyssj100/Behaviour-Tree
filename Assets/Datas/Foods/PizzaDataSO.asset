@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b7decb895268eb45b0691864238c044, type: 3}
+  m_Name: PizzaDataSO
+  m_EditorClassIdentifier: 
+  pizzaDataList:
+  - PizzaType: 1
+    PizzaPrice: 10
+    PizzaTimeMaker: 2
+  - PizzaType: 2
+    PizzaPrice: 20
+    PizzaTimeMaker: 4
+  - PizzaType: 3
+    PizzaPrice: 30
+    PizzaTimeMaker: 6
