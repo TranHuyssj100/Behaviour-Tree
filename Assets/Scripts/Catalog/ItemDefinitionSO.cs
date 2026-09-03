@@ -5,7 +5,7 @@ public class ItemDefinitionSO : ScriptableObject
 {
     [SerializeField] string id = "item_new";
     [SerializeField] string displayName = "New Item";
-    [SerializeField] ItemType category = ItemType.Food;
+    [SerializeField] ItemType category = ItemType.None;
     [SerializeField] int basePrice = 10;
 
     [Header("Boost")]

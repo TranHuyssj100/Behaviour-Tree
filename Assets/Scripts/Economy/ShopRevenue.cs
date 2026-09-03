@@ -9,9 +9,9 @@ public class ShopRevenue
         this.rules = rules;
     }
 
-    public int GetSalePrice(ShopBase shop, ItemDefinitionSO item)
+    public int GetSalePrice(ShopBase shop, IProduct product)
     {
-        if (item == null)
+        if (product == null)
             return 0;
 
         float levelMultiplier = shop != null && shop.Definition != null
@@ -19,6 +19,6 @@ public class ShopRevenue
             : 1f;
 
         float modeMultiplier = rules != null ? rules.RevenueMultiplier : 1f;
-        return Mathf.Max(0, Mathf.RoundToInt(item.BasePrice * levelMultiplier * modeMultiplier));
+        return Mathf.Max(0, Mathf.RoundToInt(product.ProductPrice * levelMultiplier * modeMultiplier));
     }
 }

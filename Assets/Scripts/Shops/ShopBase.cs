@@ -1,19 +1,27 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public abstract class ShopBase : MonoBehaviour, IShop, IProperty
+
+public abstract class ShopBase : MonoBehaviour, IProperty, IShop
 {
     [SerializeField] ShopDefinitionSO definition;
     [SerializeField] int currentLevel = 1;
     [SerializeField] bool isUnlocked = true;
+    [SerializeField] PropertyType propertyType = PropertyType.Building;
+    [SerializeField] FactoryType factoryType = FactoryType.None;
+    [SerializeField] Queue<IProduct> productCompletedQueue = new();
+    [SerializeField] List<IStaff> staffProduce = new();
 
+
+    public PropertyType PropertyType => propertyType;
+    public FactoryType FactoryType => factoryType;
+    public Queue<IProduct> ProductCompletedQueue => productCompletedQueue;
     public ShopDefinitionSO Definition => definition;
-    public ShopType ShopType => definition != null ? definition.ShopType : ShopType.None;
-    public PropertyType PropertyType => PropertyType.Shop;
     public int CurrentLevel => currentLevel;
     public int MaxLevel => definition != null ? definition.MaxLevel : 1;
     public bool IsUnlocked => isUnlocked;
-
     public event Action<ShopBase> Unlocked;
     public event Action<ShopBase> Upgraded;
 
@@ -42,10 +50,24 @@ public abstract class ShopBase : MonoBehaviour, IShop, IProperty
         Upgraded?.Invoke(this);
     }
 
-    public virtual bool CanSell(ItemDefinitionSO item)
+    public abstract void OnSold(IProduct product, int revenue);
+
+    //Factory
+    public bool CanProduce(IProduct product)
     {
-        return isUnlocked && definition != null && definition.Sells(item);
+
+        if (staffProduce == null || staffProduce.Count == 0)
+        {
+            Debug.Log($"No staff to produce {product.ProductType} at {name}");
+            return false;
+        }
+        bool canProduce = staffProduce.Count > 0 && staffProduce.Any(staff => staff.CanWork(product as ItemDefinitionSO));
+        Debug.Log($"Can produce {product.ProductType} at {name} by {staffProduce.Count} staffs");
+        return canProduce;
     }
 
-    public abstract void OnSold(ItemDefinitionSO item, int revenue);
+    public void Produce(IProduct product)
+    {
+        Debug.Log($"Producing {product.ProductType} at {name}");
+    }
 }

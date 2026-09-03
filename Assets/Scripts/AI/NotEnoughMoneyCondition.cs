@@ -5,7 +5,7 @@ public class NotEnoughMoneyCondition : ConditionNode
     {
         var a = ctx.Agent;
         if (a == null || a.wantedItem == null) return NodeState.Failure;
-        return a._money < a.wantedItem.BasePrice
+        return a._money < a.wantedItem.ProductPrice
             ? NodeState.Success : NodeState.Failure;
     }
 }

@@ -25,26 +25,23 @@ public class Economy
 
     public ShopRegistry Shops => registry;
 
-    public event Action<ShopBase, ItemDefinitionSO, int> ItemSold;
+    public event Action<ShopBase, IProduct, int> ItemSold;
     public event Action<ShopBase> ShopBuilt;
     public event Action<ShopBase> ShopUpgraded;
-    public event Action<ItemDefinitionSO> BoostBought;
+    public event Action<IProduct> BoostBought;
 
-    public TransactionResult SellToCustomer(ShopBase shop, ItemDefinitionSO item)
+    public TransactionResult SellToCustomer(ShopBase shop, IProduct product)
     {
-        if (shop == null || item == null)
+        if (shop == null || product == null)
             return TransactionResult.Fail(TransactionStatus.InvalidRequest);
 
         if (!shop.IsUnlocked)
             return TransactionResult.Fail(TransactionStatus.ShopLocked);
 
-        if (!shop.CanSell(item))
-            return TransactionResult.Fail(TransactionStatus.ItemNotSold);
-
-        int price = revenue.GetSalePrice(shop, item);
+        int price = revenue.GetSalePrice(shop, product);
         profile.AddMoney(price);
-        shop.OnSold(item, price);
-        ItemSold?.Invoke(shop, item, price);
+        shop.OnSold(product, price);
+        ItemSold?.Invoke(shop, product, price);
         return TransactionResult.Ok(price);
     }
 
@@ -87,18 +84,5 @@ public class Economy
         shop.Upgrade();
         ShopUpgraded?.Invoke(shop);
         return TransactionResult.Ok(cost);
-    }
-
-    public TransactionResult TryBuyBoost(ItemDefinitionSO item)
-    {
-        if (item == null || !item.IsBoost)
-            return TransactionResult.Fail(TransactionStatus.InvalidRequest);
-
-        if (!profile.TrySpend(item.BasePrice))
-            return TransactionResult.Fail(TransactionStatus.NotEnoughMoney);
-
-        profile.AddItem(item.Id);
-        BoostBought?.Invoke(item);
-        return TransactionResult.Ok(item.BasePrice);
     }
 }

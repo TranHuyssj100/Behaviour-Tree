@@ -17,7 +17,7 @@ public class CustomerAgent : MonoBehaviour
     [SerializeField] private float _stoppingDistance = 0.4f;
 
     [field: SerializeField] public ShopBase targetShop { get; private set; }
-    [field: SerializeField] public ItemDefinitionSO wantedItem { get; private set; }
+    [field: SerializeField] public IProduct wantedItem { get; private set; }
 
     [SerializeField] private List<SequenceNode> _sequences;
 
@@ -69,13 +69,13 @@ public class CustomerAgent : MonoBehaviour
         return NodeState.Running;
     }
 
-    public NodeState BuyItem(ItemDefinitionSO item)
+    public NodeState BuyItem(IProduct product)
     {
-        int paid = item.BasePrice;
+        int paid = product.ProductPrice;
 
-        if (_economy != null && targetShop != null && item != null)
+        if (_economy != null && targetShop != null && product != null)
         {
-            TransactionResult result = _economy.SellToCustomer(targetShop, item);
+            TransactionResult result = _economy.SellToCustomer(targetShop, product);
             if (!result.IsSuccess)
                 return NodeState.Failure;
 

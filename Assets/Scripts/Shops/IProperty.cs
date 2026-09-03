@@ -13,9 +13,5 @@ public interface IProperty
 public enum PropertyType
 {
     None = 0,
-    Shop = 1,
-    Burger = 2,
-    Salad = 3,
-    Drink = 4,
-    Other = 5,
+    Building = 1,
 }

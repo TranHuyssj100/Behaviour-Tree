@@ -6,24 +6,19 @@ public class ShopDefinitionSO : ScriptableObject
 {
     [SerializeField] string id = "shop_new";
     [SerializeField] string displayName = "New Shop";
-    [SerializeField] ShopType shopType = ShopType.None;
-    [SerializeField] int buildCost = 500;
+    [SerializeField] FactoryType factoryType = FactoryType.None;
+    [SerializeField] int buildCost = 10;
     [SerializeField] ShopBase prefab;
-    [SerializeField] List<ItemDefinitionSO> menu = new List<ItemDefinitionSO>();
     [SerializeField] UpgradeTableSO upgradeTable;
 
     public string Id => id;
     public string DisplayName => displayName;
-    public ShopType ShopType => shopType;
+    public FactoryType FactoryType => factoryType;
     public int BuildCost => buildCost;
     public ShopBase Prefab => prefab;
-    public IReadOnlyList<ItemDefinitionSO> Menu => menu;
     public int MaxLevel => upgradeTable != null ? upgradeTable.MaxLevel : 1;
 
-    public bool Sells(ItemDefinitionSO item)
-    {
-        return item != null && menu.Contains(item);
-    }
+
 
     public float GetRevenueMultiplier(int level)
     {

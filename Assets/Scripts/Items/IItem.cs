@@ -8,8 +8,4 @@ public interface IItem : IItemData
 public enum ItemType
 {
     None = 0,
-    Food = 1,
-    Drink = 2,
-    Equipment = 3,
-    Other = 4
 }

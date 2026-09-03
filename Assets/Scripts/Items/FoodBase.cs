@@ -1,43 +1,47 @@
 using UnityEngine;
 
-public abstract class FoodBase : MonoBehaviour, IItem, ITraderable
+public abstract class FoodBase : MonoBehaviour, IFood
 {
-    [SerializeField] string itemId = "food_new";
-    [SerializeField] int itemPrice;
-    [SerializeField] int itemQuantity = 1;
+    [SerializeField] protected ProductType productType = ProductType.None;
+    [SerializeField] protected FoodType foodType = FoodType.None;
+    [SerializeField] protected int productId = 0;
+    [SerializeField] protected int itemPrice;
 
-    public string id => itemId;
-    public virtual ItemType type => ItemType.Food;
-
+    public ProductType ProductType => productType;
+    public FoodType FoodType => foodType;
+    public int ProductId => productId;
+    public int ProductPrice => itemPrice;
+    
+    
     public int price
     {
         get => itemPrice;
         set => itemPrice = Mathf.Max(0, value);
     }
 
-    public int quantity
+
+    protected void SetId(int value)
     {
-        get => itemQuantity;
-        set => itemQuantity = Mathf.Max(0, value);
+        productId = value;
     }
 
-    protected void SetId(string value)
+    
+    // Implementation of IProduct interface
+    public virtual void OnProduced()
     {
-        itemId = value;
+        Debug.Log($"Produced {productId}");
     }
 
-    public virtual void OnUse()
+    public virtual void OnSold()
     {
-        Debug.Log($"Use {itemId}");
-    }
-
-    public virtual void OnBuy()
-    {
-        Debug.Log($"Buy {itemId}");
-    }
-
-    public virtual void OnSell()
-    {
-        Debug.Log($"Sell {itemId}");
+        Debug.Log($"Sold {productId}");
     }
 }
+
+
+[System.Serializable]
+public enum FoodType
+{
+    None = 0,
+    Pizza = 1,
+}   
